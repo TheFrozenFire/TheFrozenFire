@@ -90,6 +90,6 @@ __PHP__
 
 <!-- ### Footer
 
-Last updated: Jan 2022 -->
+.Last updated: Jan 2022 -->
 
 
