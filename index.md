@@ -83,7 +83,7 @@ __MediaDevils__
 __PHP__
 
 - [Credited](https://www.php.net/manual/en/preface.php#contributors) documentation maintainer
-- Voting project member
+- Voting [project member](https://people.php.net/frozenfire)
 - Community management (IRC, reddit, etc)
 - Founded PHP Mentoring
 - Contributed to Zend Framework
