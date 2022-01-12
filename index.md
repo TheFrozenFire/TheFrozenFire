@@ -39,6 +39,14 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 
 ## Occupation
 
+`2021 - Present`
+__Ethereum Foundation__
+
+- Developing a ZK system for proving knowledge of JWTs issued by social identity providers
+- Producing open source ZK cryptographic primitives
+- Providing community education and support for ZK tooling, Tornado Cash, and other privacy/crypto projects
+- Talent scouting, routing prospects toward ESP projects
+
 `2013 - 2021`
 __CallFire / EzTexting__
 
