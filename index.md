@@ -1,6 +1,6 @@
 ---
 layout: cv
-title: Justin Martin's CV
+title: Justin Martin
 ---
 # Justin Martin
 Principal Engineer in Telecom, Applied Cryptographer
