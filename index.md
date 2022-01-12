@@ -39,10 +39,26 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 
 ## Occupation
 
-`2013`
+`2013 - 2021`
+__CallFire / EzTexting__
+
+- Started as a vendor for SMS connectivity through SMSCloud
+- Professional Services work for enterprise customers, developing custom call scheduling, routing, and reporting solutions
+- Developed CallFire's PHP SDK
+- Refactored majority of message processing, routing, and origination software for EzTexting
+- Acted as Platform Architect, DevOps Engineer, Security Engineer
+- Produced a "Cloud Caller" provisioning automation system which enabled 20X increase in outbound capacity
+- Oversaw migration to automated cloud provisioning tooling, automated monitoring system
+- Developed Operational Intelligence platform producing reporting, monitoring, and analysis for infrastructure and telephony operations
+- Acted as Principal Engineer in Operations, overseeing infrastructure management, security, carrier operations
+- Developed an automated, heuristic-and-machine-learning-based messaging compliance system, enforcing industry content regulations
+- Developed anti-spam, anti-fraud threat modelling engine
+- Acted as Principal Engineer in Growth, bootstrapping a Growth team effectively utilizing A/B testing to massively decrease churn, increase conversion and ARPU
+
+`2013 - 2019`
 __Roave__
 
-- Managed SMSCloud, a high-throughput SMSC connecting businesses to telephony carrier networks
+- Developed and managed SMSCloud, a high-throughput SMSC connecting businesses to telephony carrier networks
 - Oversaw operations of software development agency business (contract negotiations, recruitment, etc)
 
 `2012`
