@@ -77,6 +77,16 @@ __MediaDevils__
 - Built custom membership video streaming platforms
 - Built specialized social network / online learning platforms
 
+## FOSS
+
+`2008 - 2016`
+__PHP__
+
+- [Credited](https://www.php.net/manual/en/preface.php#contributors) documentation maintainer
+- Voting project member
+- Community management (IRC, reddit, etc)
+- Founded PHP Mentoring
+- Contributed to Zend Framework
 
 <!-- ### Footer
 
