@@ -6,7 +6,7 @@ title: Justin Martin's CV
 Principal Engineer in Telecom, Applied Cryptographer
 
 <div id="webaddress">
-<a href="mail:justin@thefrozenfire.com">justin@thefrozenfire.com</a>
+<a href="mail:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://etherscan.io/address/frozenfire.eth">frozenfire.eth</a>
 </div>
 
 
