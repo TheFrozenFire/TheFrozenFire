@@ -44,7 +44,7 @@ __Ethereum Foundation__
 
 - Developing a ZK system for proving knowledge of JWTs issued by social identity providers
 - Producing open source ZK cryptographic primitives
-- Providing community education and support for ZK tooling, Tornado Cash, and other privacy/crypto projects
+- Providing community education and support for ZK tooling, mixers, and other privacy/crypto projects
 - Talent scouting, routing prospects toward ESP projects
 
 `2013 - 2021`
