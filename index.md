@@ -39,13 +39,31 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 
 ## Occupation
 
-`2021 - Present`
-__Ethereum Foundation__
+`2022 - Present`
+__Keyring Network__
 
-- Developing a ZK system for proving knowledge of JWTs issued by social identity providers
-- Producing open source ZK cryptographic primitives
-- Providing community education and support for ZK tooling, mixers, and other privacy/crypto projects
+- Developed the ZK privacy protocol for on-chain KYC/AML from the ground up
+- Developed a number of ZK cryptographic primitives in Circom and Typescript
+- Developed a ZK circuit development toolchain in Typescript
+- Developed an OrbitDB-based decentralized protocol messaging layer
+- Support and guidance around privacy, security, decentralization, trust minimization
+
+`2022 - 2023`
+__eth.limo__
+
+- Provided guidance and support for reducing trust assumptions, increasing privacy, decentralizing, and improving performance
+- Developed Chauffeur, a local infrastructure stack for ENS resolution and serving
+
+`2021 - August 2022`
+__Ethereum Foundation - PSE Team__
+
+- Developed a ZK system for proving knowledge of JWTs issued by social identity providers
+- Produced open source ZK cryptographic primitives
+- Provided community education and support for ZK tooling, mixers, and other privacy/crypto projects
 - Talent scouting, routing prospects toward ESP projects
+- Grants coordination, bootstrapping
+- Bootstrapped product management processes for bringing grant projects toward production
+- Infrastructure support for compiling large ZK circuits
 
 `2013 - 2021`
 __CallFire / EzTexting__
