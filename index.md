@@ -12,7 +12,7 @@ Principal Engineer in Telecom, Applied Cryptographer
 
 ## Currently
 
-Doing applied zero knowledge application development under a grant from the Ethereum Foundation ESP.
+Doing applied zero knowledge application development, currently focused on client-side-friendly ZK proofs for on-chain KYC/AML. My research focus is in how one builds user-facing zero knowledge protocols which use simple cryptographic primitives, have minimal verification costs, clear trust assumptions, and which are relatively simple to audit. I am particularly focused on creating ZK protocols which interoperate with real world concerns such as legal reputation, regulatory compliance, and real world identity.
 
 ### Specialized in
 
@@ -29,6 +29,7 @@ Doing applied zero knowledge application development under a grant from the Ethe
 * Cryptoeconomics
 * Privacy
 * Adversarial Interoperability
+* Due Process by Design
 
 
 ### Patents
