@@ -3,7 +3,7 @@ layout: cv
 title: Justin Martin
 ---
 # Justin Martin
-Principal Engineer in Telecom, Applied Cryptographer
+Principal Engineer, Applied Cryptographer, R&D
 
 <div id="webaddress">
 <a href="mail:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://etherscan.io/address/frozenfire.eth">frozenfire.eth</a>
@@ -16,8 +16,9 @@ Doing applied zero knowledge application development, currently focused on clien
 
 ### Specialized in
 
-* Telecom systems engineering (SMS, VOIP, SMPP, SIP)
+* Web Proofs (zk-tls, mpc-tls)
 * Security engineering (Cryptography, threat mitigation, compliance)
+* Telecom systems engineering (SMS, VOIP, SMPP, SIP)
 * Network engineering (Cloud provisioning, K8S clustering)
 * Operational intelligence, data science
 
@@ -44,9 +45,11 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 __Keyring Network__
 
 - Developed the ZK privacy protocol for on-chain KYC/AML from the ground up
-- Developed a number of ZK cryptographic primitives in Circom and Typescript
+- Developed a number of ZK cryptographic primitives in Circom, Typescript, and Rust
 - Developed a ZK circuit development toolchain in Typescript
+- Implemented ZK-constructed Blinded RSA signing
 - Developed an OrbitDB-based decentralized protocol messaging layer
+- Productionized TLS Notary for MPC-TLS-based Web Proofs
 - Support and guidance around privacy, security, decentralization, trust minimization
 
 `2022 - 2023`
@@ -109,6 +112,6 @@ __PHP__
 
 <!-- ### Footer
 
-.Last updated: Jan 2022 -->
+.Last updated: July 2025 -->
 
 
