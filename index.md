@@ -9,24 +9,6 @@ Principal Engineer, Applied Cryptographer, R&D
 <a href="mail:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://etherscan.io/address/frozenfire.eth">frozenfire.eth</a>
 </div>
 
-## Looking for Work
-
-I'm looking for a new role. If you're looking for an experienced software engineer and applied cryptographer, please reach out on [X](https://x.com/thefrozenfire), [TG](https://t.me/frozenfire89), or [email](mailto:justin@thefrozenfire.com).
-
-I thrive on novelty, difficulty, and the esoteric. I'm great at marshaling uncertainty and making complexity coherent. I've had my best successes acting as an interface between C-levels and un-specced technical problems, distilling a problem domain into an accessible narrative, and converting asks into action.
-
-Since 2022, I've been deep into rolling out production-grade ZK circuits with Circom, deploying [TLS Notary](https://github.com/tlsnotary/) for proving from traditional reputation stores, building Rust-based WASM engines for the browser, and all of the other things that go into productionizing a bleeding-edge crypto identity solution.
-
-Before my current role, I was a Principal Engineer for a major US internet telecom. After that, I did grants coordination for the [PSE team](https://github.com/privacy-ethereum/) at the Ethereum Foundation, followed by a stint with [eth.limo](https://github.com/ethlimo), working on the problems in bridging the traditional internet via an ENS gateway.
-
-I am generally very R&D-heavy. There's never been an idea that I've balked at implementing. Coming from my 13 years in telecom and applied cryptography, I have a very broad base in software engineering, infrastructure, networking, security, compliance, crypto, and more.
-
-I taught myself cryptography from ~zero over a couple of months of reading, talking to people in the ZK ecosystem, and seeking to understand [Tornado.cash](https://github.com/tornadocash/), while helping others to onboard into ZK along the way.
-
-In my current role, I brought a team of traditional software devs up to speed on how to integrate with and deploy cryptographic solutions. The team went from "what are elliptic curves", to consuming ZK circuits, integrating MPC-TLS, and blind signatures in production.
-
-If you have a role for me, or if you know of someone who does, please reach out.
-
 ## Currently
 
 Doing applied zero knowledge application development, currently focused on client-side-friendly ZK proofs for on-chain KYC/AML. My research focus is in how one builds user-facing zero knowledge protocols which use simple cryptographic primitives, have minimal verification costs, clear trust assumptions, and which are relatively simple to audit. I am particularly focused on creating ZK protocols which interoperate with real world concerns such as legal reputation, regulatory compliance, and real world identity.
@@ -58,7 +40,7 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 
 ## Occupation
 
-`2022 - Present`
+`2022 - 2025`
 __Keyring Network__
 
 - Developed the ZK privacy protocol for on-chain KYC/AML from the ground up
@@ -129,6 +111,6 @@ __PHP__
 
 <!-- ### Footer
 
-.Last updated: July 2025 -->
+.Last updated: January 2026 -->
 
 
