@@ -3,114 +3,127 @@ layout: cv
 title: Justin Martin
 ---
 # Justin Martin
-Principal Engineer, Applied Cryptographer, R&D
+Principal Engineer: market data, optimization, formal verification, AI systems
 
 <div id="webaddress">
-<a href="mail:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://etherscan.io/address/frozenfire.eth">frozenfire.eth</a>
+<a href="mailto:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://github.com/TheFrozenFire">github.com/TheFrozenFire</a> | BC, Canada
 </div>
 
-## Currently
+## Profile
 
-Doing applied zero knowledge application development, currently focused on client-side-friendly ZK proofs for on-chain KYC/AML. My research focus is in how one builds user-facing zero knowledge protocols which use simple cryptographic primitives, have minimal verification costs, clear trust assumptions, and which are relatively simple to audit. I am particularly focused on creating ZK protocols which interoperate with real world concerns such as legal reputation, regulatory compliance, and real world identity.
+Principal-level engineer with 15+ years building production systems where correctness matters: real-time market data and pricing, execution optimization, high-throughput messaging, and compliance. I pair hands-on Rust and TypeScript engineering with numerical methods and machine-checked proofs (Rocq), and I build day to day with AI coding agents. Looking to apply this to AI and finance.
 
 ### Specialized in
 
-* Web Proofs (zk-tls, mpc-tls)
-* Security engineering (Cryptography, threat mitigation, compliance)
-* Telecom systems engineering (SMS, VOIP, SMPP, SIP)
-* Network engineering (Cloud provisioning, K8S clustering)
-* Operational intelligence, data science
-
+* Market data, pricing and execution optimization
+* Numerical and convex optimization, constrained curve fitting
+* Formal verification (Rocq, CAS cross-checking, fuzzing)
+* AI agent tooling and LLM-in-the-loop workflows
+* Applied cryptography and security engineering
+* Observability, load testing, infrastructure as code
+* Telecom systems (SMS, VoIP, SMPP, SIP)
 
 ### Research interests
 
-* Zero Knowledge cryptography
-* Sybil resistance
-* Cryptoeconomics
+* Verified financial algorithms
+* Mechanism design
 * Privacy
 * Adversarial Interoperability
 * Due Process by Design
 
+## Experience
 
-### Patents
+`Jan 2026 – Oct 2026`
+__Reserve (ABC Labs)__
 
-`2019`
-Blockchain network communication management, [US20210243036A1](https://patents.google.com/patent/US20210243036A1/en)
+Index-fund products on digital-asset markets. Built the Rust service that prices assets and plans basket creation/redemption across fragmented trading venues, replacing the prior TypeScript generation.
 
+- Built a real-time market data and pricing engine
+  - Direct-from-source ingestion of assets, trading venues and reference price feeds across three markets
+  - Three-strategy pricing chain (venue midpoint, recursive basket decomposition, reference-feed fallback), kept separate from side-effectful data gathering
+  - Event-sourced journal pipeline with upstream-retraction handling and resumable replay
+  - Graph-based market model (Neo4j, then embedded graph DB); found and fixed an O(N) edge-upsert defect behind CPU saturation
+  - Data catalog on Open Data Contract Standard v3.1: 42 contracts, 14 external APIs
+- Built the execution routing optimizer
+  - Convex (Clarabel) formulation with flow-conservation constraints, matching 100% of the incumbent Nelder–Mead output on test cases
+  - Cut the optimizer hot loop 37% (44.6µs to 28.7µs) on a ~1,100-dimension problem
+  - Conservative, monotone market-impact curve fits using a hand-written Lawson–Hanson NNLS solver and an exact monotonicity certifier
+  - Synthetic benchmark suite with difficulty-weighted scoring; double-double (~32-digit) arithmetic for value comparisons
+- Formalized the routing problem: dual-SOCP hybrid method, an NP-hardness result (3-Partition), convergent upper bounds; Rocq proofs bound to production tests
+- Built a competitive batch-auction order solver and brought it up in shadow mode in production
+- Pre-trade simulation and execution planning for multi-step transactions
+- Typed risk model covering 18 funds and 120 assets, with provenance on every claim
+- Observability and testing: Grafana/Loki prod-vs-staging dashboards, live replay of production traffic to staging, Locust load tester, large-order regression suites
+- Infrastructure: data-provider routing (fixed retry storms cascading into rate limits), Ansible fleet, and a Terraform provider written in Go
+- Wrote LLM-facing API documentation (llms.txt, AGENTS.md); built AI meeting-transcript tooling
 
-## Occupation
-
-`2022 - 2025`
+`2022 – 2025`
 __Keyring Network__
 
-- Developed the ZK privacy protocol for on-chain KYC/AML from the ground up
-- Developed a number of ZK cryptographic primitives in Circom, Typescript, and Rust
-- Developed a ZK circuit development toolchain in Typescript
-- Implemented ZK-constructed Blinded RSA signing
-- Developed an OrbitDB-based decentralized protocol messaging layer
-- Productionized TLS Notary for MPC-TLS-based Web Proofs
-- Support and guidance around privacy, security, decentralization, trust minimization
+- Built a privacy-preserving identity verification (KYC/AML) protocol for regulated finance from the ground up
+- Built zero-knowledge proof primitives and a circuit development toolchain (Circom, TypeScript, Rust), including blinded RSA signing
+- Productionized TLS Notary to prove facts about web data without revealing it
+- Advised on privacy, security and trust minimization
 
-`2022 - 2023`
-__eth.limo__
+`2021 – 2023`
+__Ethereum Foundation (Privacy & Scaling Explorations), eth.limo__
 
-- Provided guidance and support for reducing trust assumptions, increasing privacy, decentralizing, and improving performance
-- Developed Chauffeur, a local infrastructure stack for ENS resolution and serving
+- Built a zero-knowledge system for proving possession of identity-provider JWTs (privacy-preserving authentication)
+- Published open-source cryptographic primitives; supported developers adopting privacy tooling
+- Research program management: talent scouting, grants coordination, product processes for taking grant projects to production
+- eth.limo: built Chauffeur, a local name-resolution and serving stack; advised on privacy and performance
 
-`2021 - August 2022`
-__Ethereum Foundation - PSE Team__
-
-- Developed a ZK system for proving knowledge of JWTs issued by social identity providers
-- Produced open source ZK cryptographic primitives
-- Provided community education and support for ZK tooling, mixers, and other privacy/crypto projects
-- Talent scouting, routing prospects toward ESP projects
-- Grants coordination, bootstrapping
-- Bootstrapped product management processes for bringing grant projects toward production
-- Infrastructure support for compiling large ZK circuits
-
-`2013 - 2021`
+`2013 – 2021`
 __CallFire / EzTexting__
 
-- Started as a vendor for SMS connectivity through SMSCloud
-- Professional Services work for enterprise customers, developing custom call scheduling, routing, and reporting solutions
-- Developed CallFire's PHP SDK
-- Refactored majority of message processing, routing, and origination software for EzTexting
-- Acted as Platform Architect, DevOps Engineer, Security Engineer
-- Produced a "Cloud Caller" provisioning automation system which enabled 20X increase in outbound capacity
-- Oversaw migration to automated cloud provisioning tooling, automated monitoring system
-- Developed Operational Intelligence platform producing reporting, monitoring, and analysis for infrastructure and telephony operations
-- Acted as Principal Engineer in Operations, overseeing infrastructure management, security, carrier operations
-- Developed an automated, heuristic-and-machine-learning-based messaging compliance system, enforcing industry content regulations
-- Developed anti-spam, anti-fraud threat modelling engine
-- Acted as Principal Engineer in Growth, bootstrapping a Growth team effectively utilizing A/B testing to massively decrease churn, increase conversion and ARPU
+- Built an automated heuristic and machine-learning messaging compliance system enforcing industry content regulations
+- Principal Engineer, Growth: bootstrapped a Growth team that used A/B testing to substantially reduce churn and raise conversion and ARPU
+- Built an anti-spam, anti-fraud threat modelling engine
+- Built an Operational Intelligence platform for reporting, monitoring and analysis of infrastructure and telephony operations
+- "Cloud Caller" provisioning automation enabling a 20× increase in outbound capacity
+- Principal Engineer, Operations: infrastructure, security, carrier operations; led migration to automated cloud provisioning and monitoring
+- Platform Architect: refactored most of EzTexting's message processing, routing and origination software
+- Professional services for enterprise customers (custom scheduling, routing, reporting); wrote CallFire's PHP SDK
 
-`2013 - 2019`
+`2013 – 2019`
 __Roave__
 
-- Developed and managed SMSCloud, a high-throughput SMSC connecting businesses to telephony carrier networks
-- Oversaw operations of software development agency business (contract negotiations, recruitment, etc)
+- Built and ran SMSCloud, a high-throughput SMSC connecting businesses to carrier networks (later a CallFire vendor)
+- Ran agency operations: contracts, recruitment
 
 `2012`
 __MediaDevils__
 
-- Ecommerce sweatshop
-- Built numerous custom ecommerce websites for "As Seen on TV" products
-- Built custom membership video streaming platforms
-- Built specialized social network / online learning platforms
+- High-volume ecommerce for direct-response ("As Seen on TV") products; membership video streaming and online learning platforms
+
+## Selected projects
+
+`2025 – 2026`
+__Formal methods__
+
+- Corpus reproducing historic financial-contract failures as proof/counter-proof pairs, each confirmed by 2+ tools; axiom-free Rocq proofs
+- Rocq model that classifies legal contracts by conformance to law
+- Upstream fixes to a Solidity-to-Rocq compiler; MCP server for agent-driven Rocq proof workflows
+- Rocq and CAS theory of groups of unknown order and classical cipher analysis
+
+`2025 – 2026`
+__Performance and payments__
+
+- GPU number-theory kernels: 62× over CPU, with Montgomery batch inversion
+- Reduced an ECDSA proof circuit 38% (2.58M to 1.59M constraints)
+- Rust EMV payment-card certificate reader over NFC
+
+## Patents
+
+`2019`
+Blockchain network communication management, [US20210243036A1](https://patents.google.com/patent/US20210243036A1/en)
 
 ## FOSS
 
-`2008 - 2016`
+`2008 – 2016`
 __PHP__
 
-- [Credited](https://www.php.net/manual/en/preface.php#contributors) documentation maintainer
-- Voting [project member](https://people.php.net/frozenfire)
-- Community management (IRC, reddit, etc)
-- Founded PHP Mentoring
-- Contributed to Zend Framework
+- [Credited](https://www.php.net/manual/en/preface.php#contributors) documentation maintainer and voting [project member](https://people.php.net/frozenfire)
+- Founded PHP Mentoring; contributed to Zend Framework; community management
 
-<!-- ### Footer
-
-.Last updated: January 2026 -->
-
-
+`Last updated: October 2026`
