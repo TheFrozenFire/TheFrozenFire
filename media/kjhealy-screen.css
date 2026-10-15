@@ -74,7 +74,7 @@ code {
 	font-size: 60%;
 	/*line-height: 1em;*/
 	font-family: Menlo,monospace,sans-serif;
-	color: #aaa;
+	color: #666;
 }
 
 p code {
@@ -114,7 +114,7 @@ li ul {
 
 h1,h2,h3,h4 {
 	font-weight: 400;
-	font-family: Cousine,Verdana,sans-serif;
+	font-family: Verdana,sans-serif;
 	width: 65%;
 }
 
@@ -164,7 +164,7 @@ a:hover {
 	margin-top: 1em;
 	position: relative;
 	left: 33%;
-	color: #aaa;
+	color: #666;
 	font-family: Menlo,monospace,sans-serif;
 	font-size: 80%;
 }
@@ -194,13 +194,27 @@ strong {
 }*/
 
 /* collapsible detail blocks */
-details { margin-bottom: 0.6em; }
+details { margin: 0.2em 0 0.6em; }
 details > summary {
-	position: relative; left: 28%; width: 70%;
-	cursor: pointer; list-style: none; margin-bottom: 0.2em;
+	position: relative; left: 33%; width: 65%;
+	margin-left: -1.1em; padding-left: 1.1em; text-indent: -1.1em;
+	line-height: 1.45em; cursor: pointer; list-style: none; margin-bottom: 0.3em;
 }
 details > summary::-webkit-details-marker { display: none; }
-details > summary::before { content: "\25B8"; display: inline-block; width: 1.1em; color: #a00; }
+details > summary::before { content: "\25B8"; display: inline-block; width: 1.1em; text-indent: 0; color: #a00; }
 details[open] > summary::before { content: "\25BE"; }
-details > summary:hover { color: #39f; }
-details > p, details > ul { color: #444; }
+details > summary:hover { color: #1a6fc4; }
+details > summary:focus-visible, a:focus-visible { outline: 2px solid #1a6fc4; outline-offset: 2px; }
+details > ul { color: #333; }
+li { line-height: 1.45em; }
+li::before { content: "\2013"; display: inline-block; width: 1.25em; text-indent: 0; color: #999; }
+.role-title { font-style: italic; }
+p.updated { color: #666; font-size: 85%; margin-top: 2em; }
+@media only screen and (max-width: 700px) {
+	body { margin: 0.75em; }
+	p, ul, h1, #webaddress, details > summary { position: static; left: 0; width: auto; }
+	details > summary { margin-left: 0; }
+	h2, h3 { position: static; top: 0; text-align: left; width: auto; margin-top: 1.5em; margin-bottom: 0.4em; }
+	p code { position: static; display: block; }
+	ul { margin-left: 0; }
+}

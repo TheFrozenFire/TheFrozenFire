@@ -74,12 +74,12 @@ code {
 	font-size: 60%;
 	/*line-height: 1em;*/
 	font-family: Menlo,monospace,sans-serif;
-	color: #ccc;
+	color: #555;
 }
 
 p code {
 	position: absolute;
-	left: -11%;
+	left: -11%; white-space: nowrap;
 }
 
 
@@ -114,7 +114,7 @@ li ul {
 
 h1,h2,h3,h4 {
 	font-weight: 400;
-	font-family: Cousine,Verdana,sans-serif;
+	font-family: Verdana,sans-serif;
 	width: 65%;
 }
 
@@ -146,7 +146,7 @@ h2 {
 h3 {
 	font-size: 1em;
 	line-height: 2em; 
-	color: #ccc;
+	color: #555;
 	position: relative;
 	top: 1.6em;
 	text-align: right;
@@ -166,7 +166,7 @@ a:hover {
 	margin-top: 1em;
 	position: relative;
 	left: 28%;
-	color: #ccc;
+	color: #555;
 	font-family: Menlo,monospace,sans-serif;
 	font-size: 80%;
 }
@@ -194,7 +194,13 @@ strong {
 
 
 /* print: always show details */
+@page { margin: 1.5cm; }
 details > summary { position: relative; left: 28%; width: 70%; list-style: none; font-weight: bold; margin-bottom: 0.2em; }
 details > summary::-webkit-details-marker { display: none; }
 details::details-content { content-visibility: visible; display: block; }
+details, li, summary { page-break-inside: avoid; break-inside: avoid; }
+h2, h3, p strong { page-break-after: avoid; break-after: avoid; }
 details { margin-bottom: 0.6em; }
+li::before { content: "\2013"; display: inline-block; width: 1.25em; text-indent: 0; }
+.screen-only { display: none; }
+p.updated { color: #555; font-size: 85%; margin-top: 1.5em; }

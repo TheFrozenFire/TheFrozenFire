@@ -3,7 +3,7 @@ layout: cv
 title: Justin Martin
 ---
 # Justin Martin
-Principal Engineer: market data, optimization, formal verification, AI systems
+Principal Engineer: AI systems, market data and execution, formal verification
 
 <div id="webaddress">
 <a href="mailto:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://github.com/TheFrozenFire">github.com/TheFrozenFire</a> | BC, Canada
@@ -11,242 +11,252 @@ Principal Engineer: market data, optimization, formal verification, AI systems
 
 ## Profile
 
-Principal-level engineer with 15+ years building production systems where correctness matters: real-time market data and pricing, execution optimization, high-throughput messaging, and compliance. I pair hands-on Rust and TypeScript engineering with numerical methods and machine-checked proofs (Rocq), and I build day to day with AI coding agents. Looking to apply this to AI and finance.
-
-Sections marked ▸ expand for technical detail.
+Engineer with 15+ years of building production systems: real-time pricing and execution engines, high-volume messaging platforms, compliance automation and privacy-preserving identity. I write Rust and TypeScript, use numerical optimization and machine-checked proofs (Rocq) to show that systems do what they claim, and build agent tooling whose output is checked by a proof assistant or test suite rather than trusted.
 
 ### Specialized in
 
 * Market data, pricing and execution optimization
-* Numerical and convex optimization, constrained curve fitting
-* Formal verification (Rocq, CAS cross-checking, fuzzing)
-* AI agent tooling and LLM-in-the-loop workflows
-* Applied cryptography and security engineering
-* Observability, load testing, infrastructure as code
-* Telecom systems (SMS, VoIP, SMPP, SIP)
+* Numerical and convex optimization; constrained curve fitting
+* Formal verification (Rocq, computer algebra, fuzzing)
+* AI agent tooling with machine-checked output
+* Data pipelines and distributed systems
+* Security and privacy engineering (applied cryptography)
+
+### Skills
+
+* **Languages:** Rust, TypeScript, Python, Go, PHP, SQL
+* **Data:** Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, Marimo
+* **Infrastructure:** AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Vault, Grafana, Loki
+* **Methods:** convex and derivative-free optimization, least squares, event sourcing, load testing, A/B testing, machine learning classification
+* **AI:** LLM agents, Model Context Protocol (MCP) servers, LLM classification pipelines
 
 ### Research interests
 
 * Verified financial algorithms
 * Mechanism design
 * Privacy
-* Adversarial Interoperability
-* Due Process by Design
+* Adversarial interoperability
+* Due process by design
 
 ## Experience
 
 `Jan 2026 – Oct 2026`
 __Reserve (ABC Labs)__
 
-Index-fund products on digital-asset markets. Led the engineering of the service that prices assets and plans basket creation/redemption across fragmented trading venues: first a TypeScript generation (Jan–Jun), then a Rust rewrite (Mar–Oct) that replaced it. About 6,300 commits across 20+ repositories.
+*Engineering Lead, Trading Infrastructure*
+
+Reserve issues index-fund products on digital-asset markets. I led engineering for the pricing and execution engine that creates and redeems fund baskets across fragmented trading venues.
+
+- Rewrote the routing and pricing engine from first principles in Rust, replacing the earlier TypeScript service
+- Designed a real-time market data pipeline (event-sourced journal, graph market model) feeding a constrained execution optimizer
+- Built the reliability stack (production-traffic replay, load testing, regression suites) and owned infrastructure and security work
 
 <details markdown="1">
-<summary markdown="span">**Market data and pricing engine**: real-time, multi-venue ingestion into an event-sourced journal and graph market model</summary>
+<summary><b>Market data and pricing</b>: event-sourced ingestion, graph market model, three-strategy pricing</summary>
 
-- **Pricing as pure arithmetic.** Separated problem construction (side-effectful search, quoting, redemption simulation) from price computation, which is pure arithmetic over a valuation object, so pricing logic is deterministic and testable in isolation
-- **Three-strategy pricing chain** in confidence order: venue swap midpoint, then recursive basket decomposition (pricing each component), then reference-feed fallback; prices in synthetic USD anchored to a stablecoin; epoch-scoped price cache and a multi-anchor swap pricer
-- **Journalled ingestion.** Per-protocol mappers emit field-level deltas into a journal; tables give pending writes precedence and isolate upstream chain reorganizations (data retractions); catch-up reads indexed by (source, block, sequence, write id) for exact resumption
-- **Graph market model.** Projected the routing graph into Neo4j, then into the embedded graph database grafeo, with a staged cutover; isolated an O(N) edge-upsert scaling defect that was saturating CPU; resumable, cursor-aware replay
-- **Kind-agnostic job scheduler**; migrated stats, scoring and edge workloads onto it
-- **Venue coverage:** constant-product, concentrated-liquidity and stableswap market makers (Uniswap V2/V3/V4, Curve, Balancer V2/V3, Aerodrome, SushiSwap), yield vaults (ERC-4626) and lending markets (Morpho), across Ethereum, Base and BSC
-- **Data-provider validation:** `rpc-doctor`, a capability and throughput prober that discovers batch-size and execution-cost limits of node providers
-- **Data contracts:** catalog on Open Data Contract Standard v3.1 covering 42 contracts and 14 external APIs
+- Separated pricing into two stages: side-effectful problem construction (search, quoting, redemption simulation) and price computation as pure arithmetic over a valuation, so pricing logic is deterministic and testable alone
+- Priced assets through three strategies in order of confidence: venue midpoint, recursive basket decomposition (pricing each component), then reference price feed; denominated in USD through a reference asset, with an epoch-scoped price cache
+- Built journaled ingestion: per-venue mappers emit field-level deltas into a journal that handles upstream data retractions (chain reorganizations) and resumes exactly from an indexed cursor
+- Moved the market graph from Neo4j to an embedded graph database with a staged cutover; traced CPU saturation at bootstrap to an edge upsert whose cost grew linearly with graph size (quadratic overall), measured at about 11µs per existing edge
+- Built a workload-agnostic job scheduler and migrated statistics, scoring and graph-edge jobs onto it
+- Covered constant-product, concentrated-liquidity and stable-swap market makers, pooled funds and lending markets across three networks
+- Wrote a tool that probes market-data providers for capability and throughput limits
+- Documented data sources as data contracts (Open Data Contract Standard v3.1)
+
 </details>
 
 <details markdown="1">
-<summary markdown="span">**Execution routing optimizer**: constrained multi-venue order routing via convex and derivative-free optimization</summary>
+<summary><b>Execution optimization</b>: order routing across venues, market-impact curve fitting, batch-auction solving</summary>
 
-- **Convex formulation.** Added a Clarabel (interior-point conic) solver alongside Nelder–Mead, with flow-conservation constraints across the venue graph; matched 100% of Nelder–Mead output on a native-tick test case
-- **Hot-path performance.** Cut Nelder–Mead objective evaluation from 44.6µs to 28.7µs (−37%) on a 357-node, ~1,100-dimension fixture; 500ms per-call budget; deterministic RNG seeding; solver config and trace harness for reproducible runs
-- **Warm starts.** Execution-cost-free merit-order initialization; LP warm start in the formal method (below)
-- **Numerical robustness.** Bisection fixed for extreme asset scales (a 27-order-of-magnitude bracket); double-double (~32-digit) arithmetic for value comparisons; paths ranked by output capacity rather than spot rate
-- **Benchmark "gym".** Synthetic graphs with power-law weights and venue depths from $1K to $10M, difficulty-weighted scoring; basket tests assert ≥95% efficiency and ≤5% residual dust
+- Prototyped a linear-programming formulation (Clarabel) with flow-conservation constraints; it matched Nelder–Mead on direct swaps, but basket creation maximizes a min() over components, which a plain LP cannot represent, so a derivative-free solver stayed in production for baskets
+- Cut Nelder–Mead objective evaluation time by 37% on a fixture of roughly 1,100 dimensions; added deterministic seeding, solver configuration and trace tooling for reproducible runs
+- Seeded the optimizer with a merit-order warm start that ignores execution cost
+- Fixed a bisection that failed on assets priced 27 orders of magnitude apart: seeded the bracket from a spot-rate estimate with exponential search, cutting ratio error from 1.229 to about 0.01
+- Ranked candidate paths by output capacity instead of spot rate
+- Fitted a log-log polynomial to each venue's output curve, so the optimizer sees a smooth curve instead of step changes at liquidity boundaries (ported from an earlier internal service)
+- Added a monotone fit: parameterized the derivative in the Bernstein basis with non-negative coefficients, solved by a hand-written Lawson–Hanson non-negative least squares solver; fit selection keeps the better of the constrained and unconstrained fit at each degree
+- Made fits conservative: rejected fits that over-predict any sample by more than 3%, then bounded the fit's excess over the true curve between samples with a Bernstein branch-and-bound and shifted the fit down, so the optimizer never over-credits a venue within the sampled range
+- Wrote an exact monotonicity certifier (Bernstein subdivision, not sampling) shared by the fitter and the optimizer's admission gate, closing a gap where the two disagreed
+- Built synthetic benchmark graphs (power-law weights, venue depths from $1K to $10M) with difficulty-weighted scoring; basket tests require at least 95% efficiency and at most 5% unallocated residue
+- Benchmarked double-double arithmetic against 256-bit integers and f64 for value comparison (experiment; not shipped)
+- Built a solver for a third-party batch-auction settlement network, from order filtering to settlement encoding, and ran it in shadow mode
+
 </details>
 
 <details markdown="1">
-<summary markdown="span">**Market-impact curve fitting**: conservative, provably monotone fits replacing step-function liquidity</summary>
+<summary><b>Formal methods</b>: complexity result for routing, proofs tied to production tests</summary>
 
-- Ported a log-log polynomial fit per trading edge from an earlier Rust data service, giving the optimizer smooth curves instead of tick-boundary cliffs
-- Fits are conservative by construction: they never over-predict output
-- Monotone-constrained fit via a Bernstein-basis derivative, solved with a hand-written Lawson–Hanson non-negative least squares (NNLS) solver
-- Exact Bernstein monotonicity certifier to verify fitted curves
+- Wrote a research note on routing under ratio constraints: showed the problem is strongly NP-hard by reduction from 3-Partition, then developed a method using a second-order cone dual with convergent upper bounds on the optimum and an LP warm start, validated on synthetic experiments against a published method (arXiv:2601.03799)
+- Proved in Rocq, with PARI/GP cross-checks, that the optimal basket creation spends the whole budget and that the ratio-matching split is its unique maximizer
+- Proved concavity of stable-swap output curves via an implicit-function argument, factoring the key polynomial identity exactly
+- Bound 16 theorems about the optimizer's objective and constraints to its production tests
+- Designed a layered model of the routing problem in Rocq and checked it against production behavior
+- Fuzzed quote round-trips for spurious round-trip profit (pricing inconsistencies)
+- Explored formal verification of production contracts (unmerged)
+
 </details>
 
 <details markdown="1">
-<summary markdown="span">**Formal theory and verification**: optimization theory with a hardness result, and machine-checked proofs bound to production tests</summary>
+<summary><b>Reliability and infrastructure</b>: production replay, load and regression testing, observability, infrastructure as code</summary>
 
-- **Theory of ratio-constrained routing:** dual-SOCP hybrid method, LICQ (constraint-qualification) characterization, an NP-hardness barrier by reduction from 3-Partition, convergent upper bounds, LP warm start; synthetic experiments S1–S13 validated against arXiv:2601.03799
-- **Rocq proofs with CAS witnesses** (PARI/GP) bound to production tests, e.g. a "Full-Budget Principle", an implicit-function-theorem concavity bracket factorization, and 16 theorems bound to Nelder–Mead tests
-- **Layered architecture design** (vegvisir): L0–L3 routing substrate with Rocq models and a parity gate against production (member set 120/120, venue evaluation 6/6 within 0.5%) over ~708k venues
-- **Fuzzing** of quote round-trips to catch phantom arbitrage (664+ corpus entries)
-</details>
-
-<details markdown="1">
-<summary markdown="span">**Batch-auction order solver**: competitive best-execution engine, run in production shadow mode</summary>
-
-- Solver engine scaffold, order filtering and settlement lowering for CoW Protocol batch auctions
-- Mainnet shadow bring-up with operational runbook
-- Solver multiplexer fanning auctions out to multiple engines and choosing a winner by fills, then surplus, then latency
-</details>
-
-<details markdown="1">
-<summary markdown="span">**Execution planning and pre-trade simulation**</summary>
-
-- Transaction planner on the Weiroll VM with venue encoders (Curve, Balancer, ERC-4626)
-- Batched pre-trade simulation (`eth_callMany`) with balance-slot resolution
-- Upstream fix to a node client's multi-block simulation (`eth_simulateV1` parent-header lookup)
-</details>
-
-<details markdown="1">
-<summary markdown="span">**Prior TypeScript generation**: domain-driven refactor and migration to Rust</summary>
-
-- Domain-driven refactor: extracted a block-state service, introduced protocol base classes; graph-build timing instrumentation
-- Diagnosed pathological venues requiring 35–50M+ execution units per quote; made the quoter cap configurable (10M default); tracked p90 latency (~730ms)
-- Ran the migration to the Rust service with a dedicated regression environment
-</details>
-
-<details markdown="1">
-<summary markdown="span">**Risk and research products**: fund risk model and prediction-market index design</summary>
-
-- Typed YAML risk model covering 18 funds and 120 assets, with provenance tags on every claim
-- Explored a perpetual prediction-market index (Polymarket), including phase analysis of entry and exit
-- Test coverage for an auction-bidding bot, including race conditions
-</details>
-
-<details markdown="1">
-<summary markdown="span">**Observability, regression and load testing**</summary>
-
-- Grafana dashboards comparing production and staging on response time, market impact and residual dust; slippage and loss panels
-- Live replay of production traffic into staging by tailing Loki; custom Rust Loki tracing layer
+- Led the migration from the TypeScript service to Rust behind a dedicated regression environment; in the TypeScript service, refactored around domain services and protocol base classes and made the quoter's execution-cost cap configurable after finding venues that needed far more than the default
+- Replayed live production traffic into staging by tailing Loki; built Grafana dashboards comparing production and staging on response time, market impact, residue and loss; wrote a Rust tracing layer for Loki
 - Moved the load tester from aiohttp to Locust with swap, price and mixed user profiles
-- Regression suites including $1M creation/redemption tests at <2% market impact; Marimo notebook suites bucketed by market cap
+- Built regression suites including $1M creation and redemption trades held under 2% market impact, plus notebook suites bucketed by market cap
+- Fixed retry storms in the data-provider proxy that cascaded into rate limits; added capability-aware routing and more resilient streaming subscriptions
+- Ran self-hosted data infrastructure and Ansible fleet maintenance with Vault and Traefik; wrote a Terraform provider and a backup CLI in Go
+- Deployed a MongoDB replica set and Neo4j staging with versioned reingestion
+- Wrote a typed risk model of fund products and their underlying assets, with a source for every claim
+
 </details>
 
 <details markdown="1">
-<summary markdown="span">**Infrastructure**: data-provider routing, node fleet, infrastructure as code</summary>
+<summary><b>AI tooling</b>: LLM-facing API documentation, meeting automation, agent-driven development</summary>
 
-- Fixed retry storms in the provider proxy (~54 calls/min per upstream cascading into rate limits); capability-aware routing via block availability (eRPC); WebSocket head-tracking resilience
-- Node operations: raised simulation limits, recovered a node stalled after a network upgrade
-- Ansible fleet playbooks, Vault, Traefik and Gatus; Go backup CLI
-- Wrote a Terraform provider in Go (data sources, CRUD resources, HCL generator)
-- MongoDB replica set and Neo4j staging deployments with versioned reingestion
-</details>
+- Wrote LLM-facing API documentation (`llms.txt`, `llms-full.txt`, AGENTS.md)
+- Built meeting automation: audio download, transcription and AI-generated minutes; transcript processing into weekly journals
+- Ran agent-heavy development with repository-level agent instructions and agent review loops
 
-<details markdown="1">
-<summary markdown="span">**AI and agent tooling**</summary>
-
-- LLM-facing API documentation (`llms.txt`, ~5,400-word `llms-full.txt`, AGENTS.md)
-- Meeting tooling: X Spaces download, transcription and AI-generated minutes; transcript processing into weekly journals
-- Agent-heavy development practice (Claude Code, Devin), with repository-level agent instructions and agent review loops
 </details>
 
 `2022 – 2025`
 __Keyring Network__
 
-Privacy-preserving identity verification (KYC/AML) for regulated finance, built from the ground up.
+*Applied Cryptographer, R&D*
+
+- Built a privacy-preserving KYC/AML protocol for regulated finance: users prove they passed verification without disclosing their identity data
+- Deployed an MPC-TLS system for extracting identity documents from web sessions as verifiable evidence
 
 <details markdown="1">
-<summary markdown="span">**Detail**: protocol, proof primitives, toolchain, web proofs</summary>
+<summary><b>Proof systems, toolchain and messaging</b></summary>
 
-- Designed and built the zero-knowledge compliance protocol: users prove they passed verification without disclosing identity data
-- Built zero-knowledge primitives in Circom, TypeScript and Rust, including blinded RSA signing constructed in-circuit
+- Wrote cryptographic proof primitives in Circom, TypeScript and Rust (compiled to WASM), including blinded RSA signing verified inside a proof circuit
 - Built a circuit development toolchain in TypeScript
-- Productionized TLS Notary (MPC-TLS) to prove facts about web data without revealing it
-- Built a decentralized protocol messaging layer (OrbitDB)
-- Advised on privacy, security and trust minimization
+- Integrated TLS Notary for MPC-TLS web proofs
+- Built a browser extension and an IPFS-based peer-to-peer protocol messaging layer (OrbitDB)
+
 </details>
 
-`2021 – 2023`
-__Ethereum Foundation (Privacy & Scaling Explorations), eth.limo__
+`2022 – 2023`
+__eth.limo__
 
-Privacy-preserving authentication research and research program management.
+*Infrastructure Engineer, R&D*
+
+- Maintained and improved a public gateway that serves decentralized websites over the regular web
+- Built Chauffeur, a gateway users run locally for name resolution and content serving
+
+`2021 – Aug 2022`
+__Ethereum Foundation, Privacy & Scaling Explorations__
+
+*Grants Coordinator, DevRel, R&D*
+
+- Built a proof system for showing possession of a JSON Web Token from a social identity provider without revealing it
+- Issued and supervised research grants; scouted talent and routed it to the ecosystem support program
 
 <details markdown="1">
-<summary markdown="span">**Detail**</summary>
+<summary><b>Open source, developer relations and program management</b></summary>
 
-- Built a zero-knowledge system proving possession of JWTs issued by social identity providers
-- Published open-source cryptographic primitives; supported developers adopting privacy tooling
-- Infrastructure support for compiling large proof circuits
-- Research program management: talent scouting, grants coordination, product processes for taking grant projects to production
-- eth.limo: built Chauffeur, a local name-resolution and serving stack; advised on privacy, decentralization and performance
+- Published open-source cryptographic proof primitives and supported developers adopting privacy tooling
+- Bootstrapped product management processes for taking grant projects to production
+- Supported infrastructure for compiling large proof circuits
+
 </details>
 
 `2013 – 2021`
 __CallFire / EzTexting__
 
-Principal Engineer across platform, operations, security and growth for a high-volume business messaging and voice platform.
+*Principal Engineer (DevOps, Compliance, Carrier Ops)*
+
+- Built an automated messaging compliance system combining heuristics and machine learning to enforce industry content regulations
+- Bootstrapped the Growth Engineering team, which used A/B testing to reduce churn and raise conversion and ARPU
+- Refactored the core backend and trained the backend team in design patterns, testing and software lifecycle
 
 <details markdown="1">
-<summary markdown="span">**Machine learning, compliance and growth**</summary>
+<summary><b>Compliance, fraud and operational intelligence</b></summary>
 
-- Built an automated heuristic and machine-learning messaging compliance system enforcing industry content regulations
-- Built an anti-spam, anti-fraud threat modelling engine
-- Principal Engineer, Growth: bootstrapped a Growth team that used A/B testing to substantially reduce churn and raise conversion and ARPU
-- Built an Operational Intelligence platform for reporting, monitoring and analysis of infrastructure and telephony operations
+- Built an anti-spam, anti-fraud threat modeling engine
+- Built an operational intelligence platform for reporting, monitoring and analysis of infrastructure and telephony operations
+- Oversaw application security
+
 </details>
 
 <details markdown="1">
-<summary markdown="span">**Platform, operations and infrastructure**</summary>
+<summary><b>Platform, DevOps and carrier operations</b></summary>
 
-- "Cloud Caller" provisioning automation enabling a 20× increase in outbound capacity
-- Principal Engineer, Operations: infrastructure, security, carrier operations; led migration to automated cloud provisioning and monitoring
-- Platform Architect: refactored most of EzTexting's message processing, routing and origination software
-- Professional services for enterprise customers (custom scheduling, routing, reporting); wrote CallFire's PHP SDK
-- Started as SMS connectivity vendor via SMSCloud
+- Joined through an acqui-hire as the SMS connectivity vendor
+- Led DevOps: infrastructure orchestration, observability and incident response methodology; migrated to automated cloud provisioning and monitoring
+- Built "Cloud Caller" provisioning automation, enabling a 20× increase in outbound calling capacity
+- Oversaw platform architecture; refactored most of EzTexting's message processing, routing and origination software
+- Ran carrier operations as Principal Engineer, Operations
+- Delivered professional services for enterprise customers (custom call scheduling, routing and reporting)
+- Wrote CallFire's public PHP SDK and did developer relations
+
 </details>
 
 `2013 – 2019`
 __Roave__
 
-- Built and ran SMSCloud, a high-throughput SMSC connecting businesses to carrier networks
-- Ran agency operations: contracts, recruitment
+*Lead Engineer*
+
+- Built and ran SMSCloud, a high-throughput SMS gateway (SMSC) connecting businesses to carrier networks
+- Ran agency operations, including contract negotiation and recruitment
 
 `2012`
 __MediaDevils__
 
-- High-volume ecommerce for direct-response ("As Seen on TV") products; membership video streaming and online learning platforms
+*Lead Engineer*
+
+- Built e-commerce sites for direct-response ("As Seen on TV") products, membership video streaming platforms and online learning platforms
 
 ## Selected projects
 
 `2025 – 2026`
-__Formal methods__
+__AI systems__
 
-Machine-checked reasoning about financial, legal and cryptographic systems in Rocq, cross-checked with computer algebra.
+- Built an MCP server for the Rocq proof assistant that surfaces diagnostics and hints to agents, so an agent's proof attempts are checked by the prover rather than trusted
+- Built an agent-assisted research workflow for property due diligence (seller position, comparable sales, financing) and generalized it into a reusable template
 
 <details markdown="1">
-<summary markdown="span">**Detail**</summary>
+<summary><b>More</b>: LLM classification, agent knowledge bases, agent conventions</summary>
 
-- **Financial-contract failure corpus:** verification/counter-proof pairs reproducing historic exploits (e.g. a ~$80M reward over-distribution; vault share-price manipulation), each confirmed by 2+ independent tools; Rocq proofs with zero axioms (one family: 39 theorems)
-- **Legal-contract conformance:** Rocq model classifying legal contracts by how well they conform to law
-- **Compiler work:** upstream fixes to a Solidity-to-Rocq compiler (C++ codegen bugs, a contract-call proof rule, mapping-of-struct storage)
-- **Agent tooling:** MCP server for Rocq that surfaces diagnostics and hints to drive agent-based proof workflows
-- **Groups of unknown order:** Rocq and CAS theory, including factoring RSA moduli from the private exponent and a catalog of key-generation leaks; a proving system over RSA groups (powers of tau, QAP, Fiat–Shamir)
-- **Cipher analysis:** Rocq laboratory for classical ciphers with differential and linear S-box analysis
-- **Shared library:** modular arithmetic, quadratic fields Z[√d], cipher theory
-- **Governance-contract verification:** 100% Rocq compile coverage with findings dispositions; 26-script CAS suite across 13 domains
+- Built a browser extension that classifies replies with an LLM in batches of 50, with throttling
+- Built a meeting-transcript knowledge base maintained by a coding agent
+- Wrote agent engineering conventions: domain-driven design, test-driven development, plans recorded as architecture decision records
+
 </details>
 
 `2025 – 2026`
-__Performance, math and payments__
+__Formal methods for finance and law__
+
+- Built a formal-verification harness and methodology: each property is stated as a proof and a counter-proof, confirmed by at least two independent tools, with Rocq proofs that use no axioms
+- Applied it to a corpus reproducing historic financial-contract failures, including a reward over-distribution of about $80M and vault share-price manipulation
+- Built a Rocq model that classifies legal contracts by how well they conform to law
 
 <details markdown="1">
-<summary markdown="span">**Detail**</summary>
+<summary><b>Compiler fixes, shared libraries, algebra</b></summary>
 
-- GPU digest-search kernels: 62× over CPU, 38% of it from Montgomery batch inversion
-- Reduced an ECDSA (secp256k1) proof circuit 38%, from 2.58M to 1.59M constraints; hybrid Poseidon/Keccak commitment bridge
-- Aperiodic (Spectre) tiling analysis in Rust at 142K–974K tiles, with PARI/GP algebraic number theory
-- Rust EMV payment-card certificate reader over PC/SC NFC, detecting SDA/DDA/CDA card authentication
+- Fixed C++ code generation bugs, added a contract-call proof rule and supported mapping-of-struct storage in my fork of a Solidity-to-Rocq compiler
+- Maintained a shared Rocq library: modular arithmetic, quadratic fields Z[√d], cipher theory
+- Analyzed the Spectre aperiodic tiling in Rust at 142K–974K tiles, with algebraic number theory in PARI/GP
+
 </details>
 
 `2025 – 2026`
-__AI applications__
+__Performance and payments__
+
+- Wrote GPU kernels for digest search, about 62× faster than the CPU version; batching field inversions with Montgomery's trick cut kernel time 38% (47.7ms to 29.4ms)
+- Built a Rust reader for EMV payment-card certificates over NFC (PC/SC) that detects the card's authentication method (SDA, DDA, CDA)
+
+`2025 – 2026`
+__Cryptography__
 
 <details markdown="1">
-<summary markdown="span">**Detail**</summary>
+<summary><b>Proof circuits, unknown-order groups, cipher analysis</b></summary>
 
-- Agent-assisted property due diligence: seller-position analysis, comparable sales, financing; generalized into a reusable workflow
-- Browser extension doing batched LLM classification of replies with throttling, plus a Grok search integration
-- Client injection for a Rust LLM builder library; meeting-transcript knowledge base driven by Claude Code
+- Cut an ECDSA (secp256k1) signature-verification circuit from 2.58M to 1.59M constraints (38%)
+- Formalized groups of unknown order in Rocq and computer algebra, including the textbook recovery of RSA factors from the private exponent and a catalog of key-generation leaks; sketched a proving system over RSA groups
+- Built a Rocq laboratory for classical ciphers, with differential and linear analysis of S-boxes
+
 </details>
 
 ## Patents
@@ -259,7 +269,7 @@ Blockchain network communication management, [US20210243036A1](https://patents.g
 `2008 – 2016`
 __PHP__
 
-- [Credited](https://www.php.net/manual/en/preface.php#contributors) documentation maintainer and voting [project member](https://people.php.net/frozenfire)
-- Founded PHP Mentoring; contributed to Zend Framework; community management
+- Maintained documentation as a [credited](https://www.php.net/manual/en/preface.php#contributors) contributor; voting [project member](https://people.php.net/frozenfire)
+- Founded PHP Mentoring, contributed to Zend Framework and managed community channels
 
-`Last updated: October 2026`
+<p class="updated">Last updated October 2026</p>
