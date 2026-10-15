@@ -192,3 +192,15 @@ strong {
 @media only screen and (max-width: 480px) {
 	make one column somehow...
 }*/
+
+/* collapsible detail blocks */
+details { margin-bottom: 0.6em; }
+details > summary {
+	position: relative; left: 28%; width: 70%;
+	cursor: pointer; list-style: none; margin-bottom: 0.2em;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "\25B8"; display: inline-block; width: 1.1em; color: #a00; }
+details[open] > summary::before { content: "\25BE"; }
+details > summary:hover { color: #39f; }
+details > p, details > ul { color: #444; }
