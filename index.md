@@ -22,14 +22,6 @@ Engineer with 15+ years of building production systems: real-time pricing and ex
 * Data pipelines and distributed systems
 * Security and privacy engineering (applied cryptography)
 
-### Skills
-
-* **Languages:** Rust, TypeScript, Python, Go, PHP, SQL
-* **Data:** Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, Marimo
-* **Infrastructure:** AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Vault, Grafana, Loki
-* **Methods:** convex and derivative-free optimization, least squares, event sourcing, load testing, A/B testing, machine learning classification
-* **AI:** LLM agents, Model Context Protocol (MCP) servers, LLM classification pipelines
-
 ### Research interests
 
 * Verified financial algorithms
@@ -45,79 +37,12 @@ __Reserve (ABC Labs)__
 
 *Engineering Lead, Trading Infrastructure*
 
-Reserve issues index-fund products on digital-asset markets. I led engineering for the pricing and execution engine that creates and redeems fund baskets across fragmented trading venues.
+Reserve issues index-fund products on digital-asset markets.
 
-- Rewrote the routing and pricing engine from first principles in Rust, replacing the earlier TypeScript service
-- Designed a real-time market data pipeline (event-sourced journal, graph market model) feeding a constrained execution optimizer
-- Built the reliability stack (production-traffic replay, load testing, regression suites) and owned infrastructure and security work
-
-<details markdown="1">
-<summary><b>Market data and pricing</b>: event-sourced ingestion, graph market model, three-strategy pricing</summary>
-
-- Separated pricing into two stages: side-effectful problem construction (search, quoting, redemption simulation) and price computation as pure arithmetic over a valuation, so pricing logic is deterministic and testable alone
-- Priced assets through three strategies in order of confidence: venue midpoint, recursive basket decomposition (pricing each component), then reference price feed; denominated in USD through a reference asset, with an epoch-scoped price cache
-- Built journaled ingestion: per-venue mappers emit field-level deltas into a journal that handles upstream data retractions (chain reorganizations) and resumes exactly from an indexed cursor
-- Moved the market graph from Neo4j to an embedded graph database with a staged cutover; traced CPU saturation at bootstrap to an edge upsert whose cost grew linearly with graph size (quadratic overall), measured at about 11µs per existing edge
-- Built a workload-agnostic job scheduler and migrated statistics, scoring and graph-edge jobs onto it
-- Covered constant-product, concentrated-liquidity and stable-swap market makers, pooled funds and lending markets across three networks
-- Wrote a tool that probes market-data providers for capability and throughput limits
-- Documented data sources as data contracts (Open Data Contract Standard v3.1)
-
-</details>
-
-<details markdown="1">
-<summary><b>Execution optimization</b>: order routing across venues, market-impact curve fitting, batch-auction solving</summary>
-
-- Prototyped a linear-programming formulation (Clarabel) with flow-conservation constraints; it matched Nelder–Mead on direct swaps, but basket creation maximizes a min() over components, which a plain LP cannot represent, so a derivative-free solver stayed in production for baskets
-- Cut Nelder–Mead objective evaluation time by 37% on a fixture of roughly 1,100 dimensions; added deterministic seeding, solver configuration and trace tooling for reproducible runs
-- Seeded the optimizer with a merit-order warm start that ignores execution cost
-- Fixed a bisection that failed on assets priced 27 orders of magnitude apart: seeded the bracket from a spot-rate estimate with exponential search, cutting ratio error from 1.229 to about 0.01
-- Ranked candidate paths by output capacity instead of spot rate
-- Fitted a log-log polynomial to each venue's output curve, so the optimizer sees a smooth curve instead of step changes at liquidity boundaries (ported from an earlier internal service)
-- Added a monotone fit: parameterized the derivative in the Bernstein basis with non-negative coefficients, solved by a hand-written Lawson–Hanson non-negative least squares solver; fit selection keeps the better of the constrained and unconstrained fit at each degree
-- Made fits conservative: rejected fits that over-predict any sample by more than 3%, then bounded the fit's excess over the true curve between samples with a Bernstein branch-and-bound and shifted the fit down, so the optimizer never over-credits a venue within the sampled range
-- Wrote an exact monotonicity certifier (Bernstein subdivision, not sampling) shared by the fitter and the optimizer's admission gate, closing a gap where the two disagreed
-- Built synthetic benchmark graphs (power-law weights, venue depths from $1K to $10M) with difficulty-weighted scoring; basket tests require at least 95% efficiency and at most 5% unallocated residue
-- Benchmarked double-double arithmetic against 256-bit integers and f64 for value comparison (experiment; not shipped)
-- Built a solver for a third-party batch-auction settlement network, from order filtering to settlement encoding, and ran it in shadow mode
-
-</details>
-
-<details markdown="1">
-<summary><b>Formal methods</b>: complexity result for routing, proofs tied to production tests</summary>
-
-- Wrote a research note on routing under ratio constraints: showed the problem is strongly NP-hard by reduction from 3-Partition, then developed a method using a second-order cone dual with convergent upper bounds on the optimum and an LP warm start, validated on synthetic experiments against a published method (arXiv:2601.03799)
-- Proved in Rocq, with PARI/GP cross-checks, that the optimal basket creation spends the whole budget and that the ratio-matching split is its unique maximizer
-- Proved concavity of stable-swap output curves via an implicit-function argument, factoring the key polynomial identity exactly
-- Bound 16 theorems about the optimizer's objective and constraints to its production tests
-- Designed a layered model of the routing problem in Rocq and checked it against production behavior
-- Fuzzed quote round-trips for spurious round-trip profit (pricing inconsistencies)
+- Led engineering for the routing and pricing engine that creates and redeems fund baskets across trading venues
+- Rewrote the routing and pricing engine from first principles
+- Did infrastructure and security work for the engine and its data services
 - Explored formal verification of production contracts (unmerged)
-
-</details>
-
-<details markdown="1">
-<summary><b>Reliability and infrastructure</b>: production replay, load and regression testing, observability, infrastructure as code</summary>
-
-- Led the migration from the TypeScript service to Rust behind a dedicated regression environment; in the TypeScript service, refactored around domain services and protocol base classes and made the quoter's execution-cost cap configurable after finding venues that needed far more than the default
-- Replayed live production traffic into staging by tailing Loki; built Grafana dashboards comparing production and staging on response time, market impact, residue and loss; wrote a Rust tracing layer for Loki
-- Moved the load tester from aiohttp to Locust with swap, price and mixed user profiles
-- Built regression suites including $1M creation and redemption trades held under 2% market impact, plus notebook suites bucketed by market cap
-- Fixed retry storms in the data-provider proxy that cascaded into rate limits; added capability-aware routing and more resilient streaming subscriptions
-- Ran self-hosted data infrastructure and Ansible fleet maintenance with Vault and Traefik; wrote a Terraform provider and a backup CLI in Go
-- Deployed a MongoDB replica set and Neo4j staging with versioned reingestion
-- Wrote a typed risk model of fund products and their underlying assets, with a source for every claim
-
-</details>
-
-<details markdown="1">
-<summary><b>AI tooling</b>: LLM-facing API documentation, meeting automation, agent-driven development</summary>
-
-- Wrote LLM-facing API documentation (`llms.txt`, `llms-full.txt`, AGENTS.md)
-- Built meeting automation: audio download, transcription and AI-generated minutes; transcript processing into weekly journals
-- Ran agent-heavy development with repository-level agent instructions and agent review loops
-
-</details>
 
 `2022 – 2025`
 __Keyring Network__
@@ -259,11 +184,6 @@ __Cryptography__
 
 </details>
 
-## Patents
-
-`2019`
-Blockchain network communication management, [US20210243036A1](https://patents.google.com/patent/US20210243036A1/en)
-
 ## FOSS
 
 `2008 – 2016`
@@ -271,5 +191,16 @@ __PHP__
 
 - Maintained documentation as a [credited](https://www.php.net/manual/en/preface.php#contributors) contributor; voting [project member](https://people.php.net/frozenfire)
 - Founded PHP Mentoring, contributed to Zend Framework and managed community channels
+
+## Other
+
+__Keywords__
+
+Rust, TypeScript, Python, Go, PHP, SQL, Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Grafana, Loki, LLM agents, MCP, machine learning, optimization, A/B testing, formal verification, Rocq
+
+__Patent application__
+
+`2019`
+Blockchain network communication management (US20210243036A1, abandoned)
 
 <p class="updated">Last updated October 2026</p>
