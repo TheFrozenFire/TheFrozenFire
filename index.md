@@ -198,9 +198,9 @@ __Keywords__
 
 Rust, TypeScript, Python, Go, PHP, SQL, Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Grafana, Loki, LLM agents, MCP, machine learning, optimization, A/B testing, formal verification, Rocq
 
-__Patent application__
+__Patent__
 
-`2019`
-Blockchain network communication management (US20210243036A1, abandoned)
+`2021`
+Co-inventor, [US Patent 10,917,244](https://patents.google.com/patent/US10917244B1/en) (2021, CallFire): bridging SMS/telephony messaging and smart contracts
 
 <p class="updated">Last updated October 2026</p>
