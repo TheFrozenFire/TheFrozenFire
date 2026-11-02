@@ -3,7 +3,7 @@ layout: cv
 title: Justin Martin
 ---
 # Justin Martin
-Principal Engineer: AI systems, market data and execution, formal verification
+Principal Engineer, Applied Cryptography, R&D
 
 <div id="webaddress">
 <a href="mailto:justin@thefrozenfire.com">justin@thefrozenfire.com</a> | <a href="https://github.com/TheFrozenFire">github.com/TheFrozenFire</a> | BC, Canada
@@ -11,21 +11,22 @@ Principal Engineer: AI systems, market data and execution, formal verification
 
 ## Profile
 
-Engineer with 15+ years of building production systems: real-time pricing and execution engines, high-volume messaging platforms, compliance automation and privacy-preserving identity. I write Rust and TypeScript, use numerical optimization and machine-checked proofs (Rocq) to show that systems do what they claim, and build agent tooling whose output is checked by a proof assistant or test suite rather than trusted.
+Seasoned software engineer with 15+ years of experience across infrastructure, data science, cryptography and full-stack development. I thrive on novelty, difficulty and the esoteric. I'm great at marshaling uncertainty and making complexity coherent. R&D and Growth Engineering are my specialty.
 
 ### Specialized in
 
+* ZK cryptography
+* Web proofs (zk-TLS)
+* R&D and growth engineering
+* Operational intelligence
+* Formal verification
 * Market data, pricing and execution optimization
-* Numerical and convex optimization; constrained curve fitting
-* Formal verification (Rocq, computer algebra, fuzzing)
 * AI agent tooling with machine-checked output
-* Data pipelines and distributed systems
-* Security and privacy engineering (applied cryptography)
 
 ### Research interests
 
-* Verified financial algorithms
-* Mechanism design
+* Sybil resistance
+* Cryptoeconomics
 * Privacy
 * Adversarial interoperability
 * Due process by design
@@ -35,22 +36,25 @@ Engineer with 15+ years of building production systems: real-time pricing and ex
 `Jan 2026 – Oct 2026`
 __Reserve (ABC Labs)__
 
-*Engineering Lead, Trading Infrastructure*
+*Lead Engineer, DeFi Engineering*
 
 Reserve issues index-fund products on digital-asset markets.
 
-- Led engineering for the routing and pricing engine that creates and redeems fund baskets across trading venues
-- Rewrote the routing and pricing engine from first principles
-- Did infrastructure and security work for the engine and its data services
-- Explored formal verification of production contracts (unmerged)
+- Developed and maintained the core product, a hyper-optimized DeFi transaction solver
+- Built a multi-chain DeFi market data engine
+- Developed a novel graph-based convex optimization algorithm for multi-input, multi-output order flow solving
+- Applied formal verification to ETL, optimization algorithms and application security; explored verification of production smart contracts (exploratory, unmerged)
+- Managed infrastructure and security
+- Established fully agentic development practices: guardrails, deployment processes and observability
 
 `2022 – 2025`
 __Keyring Network__
 
 *Applied Cryptographer, R&D*
 
-- Built a privacy-preserving KYC/AML protocol for regulated finance: users prove they passed verification without disclosing their identity data
-- Deployed an MPC-TLS system for extracting identity documents from web sessions as verifiable evidence
+- Developed a ZK KYC/AML protocol from the ground up for regulated finance: users prove they passed verification without disclosing their identity data
+- Deployed an MPC-TLS solution for extracting identity documents from web sessions as verifiable evidence
+- Developed and deployed Circom circuits; Rust-based WASM development; Solidity smart contract development
 
 <details markdown="1">
 <summary><b>Proof systems, toolchain and messaging</b></summary>
@@ -67,21 +71,23 @@ __eth.limo__
 
 *Infrastructure Engineer, R&D*
 
-- Maintained and improved a public gateway that serves decentralized websites over the regular web
-- Built Chauffeur, a gateway users run locally for name resolution and content serving
+- Improved and maintained the core ENS Gateway, which serves decentralized websites over the regular web
+- Developed Chauffeur, a user-local ENS Gateway for name resolution and content serving
+- R&D on IPFS, ENS and bridging decentralized protocols with the traditional internet
 
 `2021 – Aug 2022`
-__Ethereum Foundation, Privacy & Scaling Explorations__
+__PSE Team @ Ethereum Foundation__
 
 *Grants Coordinator, DevRel, R&D*
 
-- Built a proof system for showing possession of a JSON Web Token from a social identity provider without revealing it
-- Issued and supervised research grants; scouted talent and routed it to the ecosystem support program
+- Developed a ZK prover for JSON Web Tokens: proves possession of a token from a social identity provider without revealing it
+- Issued and supervised grant projects; scouted talent and routed prospects to ESP projects
 
 <details markdown="1">
 <summary><b>Open source, developer relations and program management</b></summary>
 
-- Published open-source cryptographic proof primitives and supported developers adopting privacy tooling
+- Published open-source ZK cryptographic primitives
+- Ecosystem developer relations, supporting developers adopting privacy tooling
 - Bootstrapped product management processes for taking grant projects to production
 - Supported infrastructure for compiling large proof circuits
 
@@ -92,16 +98,16 @@ __CallFire / EzTexting__
 
 *Principal Engineer (DevOps, Compliance, Carrier Ops)*
 
-- Built an automated messaging compliance system combining heuristics and machine learning to enforce industry content regulations
-- Bootstrapped the Growth Engineering team, which used A/B testing to reduce churn and raise conversion and ARPU
-- Refactored the core backend and trained the backend team in design patterns, testing and software lifecycle
+- Developed a heuristic-and-ML messaging compliance system to enforce industry content regulations
+- Bootstrapped the Growth Engineering team; drove a major decrease in churn and increases in conversion and ARPU through A/B testing
+- Total refactor of the core backend codebase; instituted engineering best practices and trained the team on design patterns, testing methodologies and software lifecycle
 
 <details markdown="1">
 <summary><b>Compliance, fraud and operational intelligence</b></summary>
 
-- Built an anti-spam, anti-fraud threat modeling engine
-- Built an operational intelligence platform for reporting, monitoring and analysis of infrastructure and telephony operations
-- Oversaw application security
+- Developed anti-spam, anti-fraud threat modeling
+- Developed an Operational Intelligence platform producing reporting, monitoring and analysis of infrastructure and telephony operations
+- Oversaw platform architecture and application security
 
 </details>
 
@@ -109,7 +115,7 @@ __CallFire / EzTexting__
 <summary><b>Platform, DevOps and carrier operations</b></summary>
 
 - Joined through an acqui-hire as the SMS connectivity vendor
-- Led DevOps: infrastructure orchestration, observability and incident response methodology; migrated to automated cloud provisioning and monitoring
+- Acted as DevOps lead: infrastructure orchestration, observability and incident response methodology; migrated to automated cloud provisioning and monitoring
 - Built "Cloud Caller" provisioning automation, enabling a 20× increase in outbound calling capacity
 - Oversaw platform architecture; refactored most of EzTexting's message processing, routing and origination software
 - Ran carrier operations as Principal Engineer, Operations
@@ -123,15 +129,18 @@ __Roave__
 
 *Lead Engineer*
 
-- Built and ran SMSCloud, a high-throughput SMS gateway (SMSC) connecting businesses to carrier networks
-- Ran agency operations, including contract negotiation and recruitment
+- Developed and managed SMSCloud, a high-throughput telephony SMSC connecting businesses to carrier networks
+- Oversaw operations of a software development agency (contract negotiations, recruitment)
 
 `2012`
 __MediaDevils__
 
 *Lead Engineer*
 
-- Built e-commerce sites for direct-response ("As Seen on TV") products, membership video streaming platforms and online learning platforms
+- High-volume e-commerce development studio
+- Built numerous custom e-commerce websites for "As Seen on TV" products
+- Built custom membership video streaming platforms
+- Built specialized social network and online learning platforms
 
 ## Selected projects
 
@@ -189,18 +198,24 @@ __Cryptography__
 `2008 – 2016`
 __PHP__
 
+*Documentation Maintainer, Community Manager*
+
 - Maintained documentation as a [credited](https://www.php.net/manual/en/preface.php#contributors) contributor; voting [project member](https://people.php.net/frozenfire)
-- Founded PHP Mentoring, contributed to Zend Framework and managed community channels
+- Founded PHP Mentoring, contributed to Zend Framework and managed community channels (IRC, Reddit, etc.)
 
 ## Other
 
+__Tech stack__
+
+Rust, WASM, TypeScript · Circom, Solidity, EVM, IPFS · GCP, AWS, Cloudflare · Elasticsearch, Redis · MySQL, Postgres · Python, Pandas, Jupyter · Ansible, Terraform, Kubernetes
+
 __Keywords__
 
-Rust, TypeScript, Python, Go, PHP, SQL, Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Grafana, Loki, LLM agents, MCP, machine learning, optimization, A/B testing, formal verification, Rocq
+Rust, WASM, TypeScript, Circom, Solidity, Python, Go, PHP, SQL, Postgres, MySQL, MongoDB, Neo4j, Redis, Elasticsearch, Pandas, Jupyter, AWS, GCP, Cloudflare, Kubernetes, Terraform, Ansible, Grafana, Loki, LLM agents, MCP, machine learning, optimization, A/B testing, formal verification, Rocq
 
 __Patent__
 
 `2021`
 Co-inventor, [US Patent 10,917,244](https://patents.google.com/patent/US10917244B1/en) (2021, CallFire): bridging SMS/telephony messaging and smart contracts
 
-<p class="updated">Last updated October 2026</p>
+<p class="updated">Last updated November 2026</p>
