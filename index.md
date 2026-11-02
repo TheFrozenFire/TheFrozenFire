@@ -137,7 +137,7 @@ __MediaDevils__
 
 *Lead Engineer*
 
-- High-volume e-commerce development studio
+- Ecommerce sweatshop
 - Built numerous custom e-commerce websites for "As Seen on TV" products
 - Built custom membership video streaming platforms
 - Built specialized social network and online learning platforms
