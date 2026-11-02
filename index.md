@@ -29,7 +29,7 @@ Seasoned software engineer with 15+ years of experience across infrastructure, d
 
 ## Experience
 
-`Jan 2026 – Oct 2026`
+`2026`
 __Reserve (ABC Labs)__
 
 *Lead Engineer, DeFi Engineering*
