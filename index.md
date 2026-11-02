@@ -1,7 +1,3 @@
----
-layout: cv
-title: Justin Martin
----
 # Justin Martin
 Principal Engineer, Applied Cryptography, R&D
 
