@@ -43,9 +43,9 @@ Reserve issues index-fund products on digital-asset markets.
 - Developed and maintained the core product, a hyper-optimized DeFi transaction solver
 - Built a multi-chain DeFi market data engine
 - Developed a novel graph-based convex optimization algorithm for multi-input, multi-output order flow solving
-- Applied formal verification to ETL, optimization algorithms and application security; explored verification of production smart contracts (exploratory, unmerged)
-- Managed infrastructure and security
-- Established fully agentic development practices: guardrails, deployment processes and observability
+- Formal verification of ETL, optimization algorithms, application security, smart contracts
+- Infrastructure management and security
+- Established fully agentic development practices, guard rails, deployment processes, observability
 
 `2022 – 2025`
 __Keyring Network__
